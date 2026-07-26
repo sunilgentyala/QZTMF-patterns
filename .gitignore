@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.venv/
+build/
+dist/
+
+# Manuscript files must never be committed to this public repo
+paper/
+*.tex
+*.cls
+*.sty
+*.docx
+*.pdf
+*.bib
