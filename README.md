@@ -13,7 +13,7 @@ Paper: *"Post-Quantum Cryptographic Migration Framework for Enterprise Zero-Trus
 
 ## What's not here
 
-The mTLS handshake latency and X.509 certificate size benchmarks reported in the paper were measured separately against [Open Quantum Safe liboqs](https://github.com/open-quantum-safe/liboqs) 0.10.1 on dedicated hardware. This repository does not reproduce those hardware measurements; it provides working reference implementations of the *patterns*, independent of the benchmark numbers.
+The mTLS handshake latency and X.509 certificate size benchmarks reported in the paper were measured separately against Open Quantum Safe liboqs 0.10.1 on dedicated hardware. This repository does not reproduce those hardware measurements; it provides working reference implementations of the *patterns*, independent of the benchmark numbers.
 
 ## Install
 
