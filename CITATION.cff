@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite the accompanying paper (under submission)."
+message: "If you use this software, please cite the accompanying paper (manuscript in preparation)."
 title: "QZTMF Patterns: Reference Implementations of Cryptographic Agility Engineering Patterns"
 authors:
   - family-names: Gentyala
@@ -31,4 +31,4 @@ preferred-citation:
       given-names: Akhila
     - family-names: Darisi
       given-names: Suresh Kumar
-  status: "Manuscript under submission"
+  status: "Manuscript in preparation"

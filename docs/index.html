@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QZTMF Patterns: Cryptographic Agility Engineering Patterns</title>
+<meta name="description" content="Reference implementations of the QZTMF cryptographic agility patterns: Algorithm Abstraction Layer, Dual-Signature Validation, Key Material Versioning, and Quantum Risk Score." />
+<meta name="theme-color" content="#050a14" />
+<link rel="canonical" href="https://sunilgentyala.github.io/QZTMF-patterns/" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%91%3C/text%3E%3C/svg%3E" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="QZTMF Patterns: Cryptographic Agility Engineering Patterns" />
+<meta property="og:description" content="Working reference implementations of the four QZTMF cryptographic agility patterns for post-quantum zero-trust migration." />
+<meta property="og:url" content="https://sunilgentyala.github.io/QZTMF-patterns/" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="QZTMF Patterns" />
+<meta name="twitter:description" content="Reference implementations of the QZTMF cryptographic agility engineering patterns." />
+
+<style>
+  :root{
+    --bg:#050a14; --bg2:#080f1c; --bg3:#030609; --bg-elev:#0b1424;
+    --border:#132238; --border-soft:#0f2236;
+    --text:#e2e8f0; --text-dim:#94a3b8; --text-faint:#475569;
+    --accent:#38bdf8; --accent2:#a78bfa; --accent3:#0ea5e9;
+    --good:#22c55e; --warn:#fbbf24; --bad:#f87171;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(14,165,233,.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(167,139,250,.10), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1020px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent)}
+  code, .mono{font-family:'SFMono-Regular',Consolas,'Courier New',monospace}
+  ::selection{background:rgba(56,189,248,.3)}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(5,10,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .nav-inner{max-width:1020px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .nav-brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;color:#f8fafc;text-decoration:none;flex-shrink:0}
+  .nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 8px var(--good)}
+  .nav-links{display:flex;gap:20px;flex-wrap:wrap}
+  .nav-links a{color:var(--text-dim);text-decoration:none;font-size:13px;font-weight:500;transition:color .15s}
+  .nav-links a:hover{color:var(--text)}
+  @media (max-width:760px){ .nav-links{display:none} }
+
+  header{padding:72px 0 56px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+  .badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .badge{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);color:var(--text-dim);background:var(--bg2)}
+  .badge.status{color:var(--warn);border-color:#3d2f0a;background:#130f04}
+  .logo-row{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+  .shield{width:54px;height:54px;border-radius:14px;flex-shrink:0;background:linear-gradient(135deg,#0369a1,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:27px;box-shadow:0 8px 24px -6px rgba(3,105,161,.5)}
+  h1{font-size:38px;font-weight:800;letter-spacing:-.6px;color:#f8fafc}
+  .tagline{font-size:15px;color:var(--text-dim);margin-top:5px}
+  .lead{font-size:17px;color:var(--text-dim);max-width:720px;margin-top:24px}
+  .lead b{color:var(--text);font-weight:600}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .tag{font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:6px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);color:var(--accent)}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:9px;font-size:14px;font-weight:600;text-decoration:none;transition:transform .15s,opacity .15s,border-color .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{background:linear-gradient(135deg,#0369a1,#6d28d9);color:white;box-shadow:0 6px 18px -6px rgba(3,105,161,.55)}
+  .btn-primary:hover{opacity:.92}
+  .btn-secondary{background:var(--bg2);color:var(--text);border:1px solid var(--border)}
+  .btn-secondary:hover{border-color:var(--accent)}
+
+  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:44px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .hstat{background:var(--bg2);padding:16px 14px;text-align:center}
+  .hstat-val{font-size:20px;font-weight:800;color:#f8fafc}
+  .hstat-label{font-size:11px;color:var(--text-faint);margin-top:3px}
+  @media (max-width:560px){ .hero-stats{grid-template-columns:repeat(2,1fr)} }
+
+  section{padding:56px 0;border-bottom:1px solid var(--border);scroll-margin-top:64px}
+  section.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+  section.reveal.in{opacity:1;transform:translateY(0)}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:1.2px;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+  h2{font-size:22px;font-weight:700;color:#f1f5f9;margin-bottom:8px}
+  .section-sub{color:var(--text-faint);font-size:14px;margin-bottom:26px;max-width:700px}
+
+  .pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){ .pattern-grid{grid-template-columns:1fr} }
+  .pcard{background:var(--bg2);border:1px solid var(--border-soft);border-radius:10px;padding:20px;border-left:3px solid var(--accent)}
+  .pcard h3{font-size:15px;color:#f1f5f9;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .pcard .pnum{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;background:rgba(56,189,248,.12);color:var(--accent);font-size:11px;font-weight:800;flex-shrink:0}
+  .pcard p{font-size:13px;color:var(--text-dim);margin-bottom:10px}
+  .pcard code.file{font-size:11.5px;color:var(--accent2);background:rgba(167,139,250,.08);padding:2px 7px;border-radius:5px;border:1px solid rgba(167,139,250,.2)}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--bg2);border:1px solid var(--border-soft);border-radius:10px;overflow:hidden}
+  .table-scroll{overflow-x:auto;border-radius:10px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border-soft);white-space:nowrap}
+  th{background:var(--bg3);color:var(--text-dim);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+  tr:last-child td{border-bottom:none}
+  td.hl{color:var(--accent);font-weight:700}
+  td.num{font-family:'SFMono-Regular',Consolas,monospace}
+
+  .flow{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+  .flow-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .flow-box{background:var(--bg2);border:1px solid var(--border-soft);border-radius:10px;padding:14px 16px;font-size:13px;flex:1;min-width:220px}
+  .flow-box b{color:#f1f5f9;display:block;margin-bottom:4px;font-size:13px}
+  .flow-box span{color:var(--text-faint);font-size:12px}
+  .flow-arrow{color:var(--text-faint);font-size:20px;flex-shrink:0}
+  @media (max-width:700px){ .flow-arrow{transform:rotate(90deg)} }
+
+  pre{background:var(--bg3);border:1px solid var(--border-soft);border-radius:10px;padding:18px;overflow-x:auto;font-size:12.5px;line-height:1.55;color:#cbd5e1}
+  .k{color:var(--accent2)} .s{color:var(--good)} .n{color:var(--warn)} .c{color:var(--text-faint)} .f{color:var(--accent)}
+
+  .code-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:850px){ .code-grid{grid-template-columns:1fr} }
+  .code-block h3{font-size:13px;color:var(--text-dim);margin-bottom:8px;font-weight:600}
+
+  .lim-list{list-style:none}
+  .lim-list li{padding:12px 0;border-bottom:1px solid var(--border-soft);font-size:13.5px;color:var(--text-dim);display:flex;gap:10px}
+  .lim-list li:last-child{border-bottom:none}
+  .lim-list li::before{content:"—";color:var(--warn);flex-shrink:0}
+
+  .install-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+  .install-col{flex:1;min-width:260px}
+
+  footer{padding:40px 0 60px;text-align:center;color:var(--text-faint);font-size:12.5px}
+  footer a{color:var(--text-dim)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand"><span class="dot"></span>QZTMF Patterns</a>
+    <div class="nav-links">
+      <a href="#patterns">Patterns</a>
+      <a href="#qrs">Quantum Risk Score</a>
+      <a href="#hybrid">Hybrid Window</a>
+      <a href="#not-here">What's not here</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/sunilgentyala/QZTMF-patterns">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="badge-row">
+      <span class="badge status">Research code, manuscript in preparation</span>
+      <span class="badge">MIT licensed</span>
+      <span class="badge">Python 3.9+</span>
+      <span class="badge">20/20 tests passing</span>
+    </div>
+    <div class="logo-row">
+      <div class="shield">🔑</div>
+      <div>
+        <h1>QZTMF Patterns</h1>
+        <div class="tagline">Reference Implementations of the Quantum-Safe Zero-Trust Migration Framework's Engineering Patterns</div>
+      </div>
+    </div>
+    <p class="lead">
+      QZTMF is a seven-phase methodology for migrating enterprise zero-trust architectures to NIST
+      post-quantum cryptographic standards. This repository ships working, tested code for the four
+      engineering patterns the framework depends on: an <b>Algorithm Abstraction Layer</b> that makes an
+      algorithm rotation a policy change instead of a code change, <b>Dual-Signature Validation</b> for the
+      hybrid classical/post-quantum transition window, a <b>Key Material Versioning</b> schema for tracking
+      which keys were issued under which migration phase, and the paper's <b>Quantum Risk Score</b>
+      asset-prioritization formula.
+    </p>
+    <div class="tag-row">
+      <span class="tag">Algorithm Abstraction Layer</span>
+      <span class="tag">Dual-Signature Validation</span>
+      <span class="tag">Key Material Versioning</span>
+      <span class="tag">Quantum Risk Score</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/sunilgentyala/QZTMF-patterns">View source →</a>
+      <a class="btn btn-secondary" href="#patterns">Browse the patterns</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">4</div><div class="hstat-label">Patterns implemented</div></div>
+      <div class="hstat"><div class="hstat-val">20</div><div class="hstat-label">Passing pytest tests</div></div>
+      <div class="hstat"><div class="hstat-val">7</div><div class="hstat-label">QZTMF migration phases modeled</div></div>
+      <div class="hstat"><div class="hstat-val">2</div><div class="hstat-label">Classical backends shipped</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="patterns">
+  <div class="wrap">
+    <div class="eyebrow">What's here</div>
+    <h2>Four patterns, one repository</h2>
+    <p class="section-sub">Each pattern is a standalone module with its own tests: no shared framework runtime, no hidden coupling. Pull in the one you need.</p>
+    <div class="pattern-grid">
+      <div class="pcard">
+        <h3><span class="pnum">1</span>Algorithm Abstraction Layer</h3>
+        <p>Resolves cryptographic operations by security level and operation type rather than by algorithm name. Ships a classical (RSA/ECDSA) backend via the <code>cryptography</code> package today, plus a <code>register_backend()</code> plug-in point for a post-quantum backend (e.g. an <code>oqs</code>-bound ML-DSA implementation), so swapping the algorithm is a policy rebind, not a call-site change.</p>
+        <code class="file">qztmf_patterns/aal.py</code>
+      </div>
+      <div class="pcard">
+        <h3><span class="pnum">2</span>Dual-Signature Validation</h3>
+        <p>The kid-based dispatch logic for the Phase 6 hybrid window: a token may carry a classical signature, a pure post-quantum signature, or a legacy signature with a parallel post-quantum extension over the same payload. Sits in front of any JWT/JOSE library rather than reimplementing one.</p>
+        <code class="file">qztmf_patterns/dual_signature.py</code>
+      </div>
+      <div class="pcard">
+        <h3><span class="pnum">3</span>Key Material Versioning</h3>
+        <p>A tagging schema and query surface (by migration phase, by algorithm family, expiring-within-N-days, classical fallback rate) for tracking which keys were issued under which QZTMF phase without cross-referencing multiple systems.</p>
+        <code class="file">qztmf_patterns/key_versioning.py</code>
+      </div>
+      <div class="pcard">
+        <h3><span class="pnum">4</span>Quantum Risk Score</h3>
+        <p>The paper's asset-prioritization formula, <code>QRS = 0.5·AQV + 0.3·DSL + 0.2·ESB</code>, with the weights exposed as a constructor argument. The paper is explicit that the default weights are a starting heuristic, not an empirically derived optimum. This module makes recalibration a parameter, not a code edit.</p>
+        <code class="file">qztmf_patterns/qrs.py</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="qrs">
+  <div class="wrap">
+    <div class="eyebrow">Section IV.A</div>
+    <h2>Quantum Risk Score</h2>
+    <p class="section-sub">Ranks assets for migration priority. Each input is a normalized 0.0–1.0 signal; weights must sum to 1.0 and are validated at construction time.</p>
+    <div class="code-grid">
+      <div class="code-block">
+        <h3>Weighted formula</h3>
+        <pre><span class="c"># AQV: algorithm vulnerability to Shor/Grover</span>
+<span class="c"># DSL: data sensitivity lifetime</span>
+<span class="c"># ESB: enterprise blast radius</span>
+
+<span class="k">QRS</span> = <span class="n">0.5</span> * AQV
+    + <span class="n">0.3</span> * DSL
+    + <span class="n">0.2</span> * ESB</pre>
+      </div>
+      <div class="code-block">
+        <h3>Usage</h3>
+        <pre><span class="k">from</span> qztmf_patterns.qrs <span class="k">import</span> \
+    QuantumRiskScore
+
+qrs = <span class="f">QuantumRiskScore</span>()
+qrs.<span class="f">rank</span>({
+    <span class="s">"root-ca"</span>: (<span class="n">1.0</span>, <span class="n">1.0</span>, <span class="n">0.9</span>),
+    <span class="s">"session-cache"</span>: (<span class="n">0.6</span>, <span class="n">0.1</span>, <span class="n">0.3</span>),
+})
+<span class="c"># [('root-ca', 0.97), ('session-cache', 0.42)]</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hybrid">
+  <div class="wrap">
+    <div class="eyebrow">Phase 6</div>
+    <h2>Dual-signature dispatch during the hybrid window</h2>
+    <p class="section-sub">A relying party has to accept three token shapes at once during the classical-to-post-quantum transition. The dispatch rule is keyed off the token's <code>kid</code>, not a global feature flag.</p>
+    <div class="flow">
+      <div class="flow-row">
+        <div class="flow-box"><b>Legacy classical key, no PQ extension</b><span>Phase 1–5 pre-hybrid state. Accepted, but treated as a migration-backlog signal, not steady state.</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box"><b>Legacy classical key + <code>ext-ml-dsa-sig</code></b><span>Phase 6 hybrid state. Both the classical and the post-quantum signature over the same payload must verify.</span></div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-box"><b>Post-quantum key alone</b><span>Phase 7 target state. Verification rests entirely on the post-quantum signature.</span></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box"><b>Exit gate</b><span><code>classical_fallback_rate()</code> tracks the key-population analogue of the paper's Phase 6→7 exit criterion.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="not-here">
+  <div class="wrap">
+    <div class="eyebrow">Stated honestly</div>
+    <h2>What's not here</h2>
+    <ul class="lim-list">
+      <li>The mTLS handshake latency and X.509 certificate size benchmarks reported in the paper were measured separately against Open Quantum Safe liboqs 0.10.1 on dedicated hardware. This repository does not reproduce those hardware measurements; it provides working reference implementations of the patterns themselves.</li>
+      <li>This is reference/research code accompanying an academic manuscript, not a production PKI library. Enterprise adopters should treat it as a starting point for their own Algorithm Abstraction Layer, not a drop-in dependency.</li>
+      <li>The post-quantum backend slot in the Algorithm Abstraction Layer is a plug-in interface, not a bundled ML-DSA implementation, so this package installs cleanly without an <code>oqs</code>/liboqs dependency.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <div class="eyebrow">Get started</div>
+    <h2>Install</h2>
+    <div class="install-row">
+      <div class="install-col">
+        <pre>pip install -e <span class="s">".[dev]"</span>
+pytest</pre>
+      </div>
+      <div class="install-col">
+        <p style="font-size:13px;color:var(--text-dim)">Requires Python 3.9+. The only runtime dependency is the <code>cryptography</code> package; <code>pytest</code> is dev-only.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Research code by Sunil Gentyala · MIT License ·
+    <a href="https://github.com/sunilgentyala/QZTMF-patterns">github.com/sunilgentyala/QZTMF-patterns</a>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('section');
+  revealEls.forEach(el => el.classList.add('reveal'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
