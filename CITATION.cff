@@ -13,6 +13,8 @@ authors:
     given-names: Akhila
   - family-names: Darisi
     given-names: Suresh Kumar
+  - family-names: Chinthakunta
+    given-names: Jalandhar
 repository-code: "https://github.com/sunilgentyala/QZTMF-patterns"
 license: MIT
 version: 0.1.0
@@ -31,4 +33,6 @@ preferred-citation:
       given-names: Akhila
     - family-names: Darisi
       given-names: Suresh Kumar
+    - family-names: Chinthakunta
+      given-names: Jalandhar
   status: "Manuscript in preparation"

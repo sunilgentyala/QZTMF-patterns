@@ -33,6 +33,7 @@ Reference/research code accompanying an academic manuscript. Not a production PK
 - Floriano Caprio, HCLTech, Italy
 - Akhila Kasturi, HCLTech, India
 - Suresh Kumar Darisi, Rocket Software Inc., USA
+- Jalandhar Chinthakunta, Demandbase Inc, USA
 
 ## License
 
