@@ -32,7 +32,7 @@ Reference/research code accompanying an academic manuscript. Not a production PK
 - John Martin, HCLTech, New Zealand
 - Floriano Caprio, HCLTech, Italy
 - Akhila Kasturi, HCLTech, India
-- Suresh Kumar Darisi, HCL, USA
+- Suresh Kumar Darisi, Rocket Software Inc., USA
 
 ## License
 
