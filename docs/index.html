@@ -125,6 +125,13 @@
   .install-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
   .install-col{flex:1;min-width:260px}
 
+  .author-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media (max-width:760px){ .author-grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:480px){ .author-grid{grid-template-columns:1fr} }
+  .author-card{background:var(--bg2);border:1px solid var(--border-soft);border-radius:10px;padding:16px 18px}
+  .author-card .name{font-size:13.5px;font-weight:700;color:#f1f5f9;margin-bottom:4px}
+  .author-card .affil{font-size:12px;color:var(--text-faint)}
+
   footer{padding:40px 0 60px;text-align:center;color:var(--text-faint);font-size:12.5px}
   footer a{color:var(--text-dim)}
 </style>
@@ -140,6 +147,7 @@
       <a href="#hybrid">Hybrid Window</a>
       <a href="#not-here">What's not here</a>
       <a href="#install">Install</a>
+      <a href="#authors">Authors</a>
       <a href="https://github.com/sunilgentyala/QZTMF-patterns">GitHub</a>
     </div>
   </div>
@@ -298,9 +306,38 @@ pytest</pre>
   </div>
 </section>
 
+<section id="authors">
+  <div class="wrap">
+    <div class="eyebrow">Authors</div>
+    <h2>Who built this</h2>
+    <div class="author-grid">
+      <div class="author-card">
+        <div class="name">Sunil Gentyala</div>
+        <div class="affil">IEEE Senior Member, HCLTech (HCL America Inc.), USA</div>
+      </div>
+      <div class="author-card">
+        <div class="name">John Martin</div>
+        <div class="affil">HCLTech, New Zealand</div>
+      </div>
+      <div class="author-card">
+        <div class="name">Floriano Caprio</div>
+        <div class="affil">HCLTech, Italy</div>
+      </div>
+      <div class="author-card">
+        <div class="name">Akhila Kasturi</div>
+        <div class="affil">HCLTech, India</div>
+      </div>
+      <div class="author-card">
+        <div class="name">Suresh Kumar Darisi</div>
+        <div class="affil">HCL, USA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
-    Research code by Sunil Gentyala · MIT License ·
+    QZTMF Patterns &middot; MIT License &middot; Sunil Gentyala, John Martin, Floriano Caprio, Akhila Kasturi, Suresh Kumar Darisi &middot;
     <a href="https://github.com/sunilgentyala/QZTMF-patterns">github.com/sunilgentyala/QZTMF-patterns</a>
   </div>
 </footer>

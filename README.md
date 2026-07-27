@@ -26,6 +26,14 @@ pytest
 
 Reference/research code accompanying an academic manuscript. Not a production PKI library: enterprise adopters should treat this as a starting point for their own Algorithm Abstraction Layer implementation, not a drop-in dependency.
 
+## Authors
+
+- Sunil Gentyala, IEEE Senior Member, HCLTech (HCL America Inc.), USA
+- John Martin, HCLTech, New Zealand
+- Floriano Caprio, HCLTech, Italy
+- Akhila Kasturi, HCLTech, India
+- Suresh Kumar Darisi, HCL, USA
+
 ## License
 
 MIT: see `LICENSE`.
