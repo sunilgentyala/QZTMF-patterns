@@ -11,10 +11,8 @@ authors:
     given-names: Floriano
   - family-names: Kasturi
     given-names: Akhila
-  - family-names: Darisi
-    given-names: Suresh Kumar
-  - family-names: Chinthakunta
-    given-names: Jalandhar
+  - family-names: Kasireddy
+    given-names: Hari Rama
 repository-code: "https://github.com/sunilgentyala/QZTMF-patterns"
 license: MIT
 version: 0.1.0
@@ -31,8 +29,6 @@ preferred-citation:
       given-names: Floriano
     - family-names: Kasturi
       given-names: Akhila
-    - family-names: Darisi
-      given-names: Suresh Kumar
-    - family-names: Chinthakunta
-      given-names: Jalandhar
+    - family-names: Kasireddy
+      given-names: Hari Rama
   status: "Manuscript in preparation"
