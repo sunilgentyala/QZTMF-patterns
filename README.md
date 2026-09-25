@@ -34,6 +34,22 @@ Reference/research code accompanying an academic manuscript. Not a production PK
 - Akhila Kasturi, HCLTech, India
 - Hari Rama Kasireddy, Senior Solution Architect, Dotsquares, Hyderabad, India
 
+## How to Cite
+
+The accompanying paper is a manuscript in preparation. Please cite the software:
+
+```bibtex
+@software{gentyala2026qztmf,
+  author    = {Gentyala, Sunil and Martin, John and Caprio, Floriano and Kasturi, Akhila and Kasireddy, Hari Rama},
+  title     = {QZTMF Patterns: Reference Implementations of Cryptographic Agility Engineering Patterns},
+  year      = {2026},
+  version   = {0.1.0},
+  url       = {https://github.com/sunilgentyala/QZTMF-patterns}
+}
+```
+
+Machine-readable metadata is in [`CITATION.cff`](CITATION.cff); GitHub shows it under "Cite this repository".
+
 ## License
 
 MIT: see `LICENSE`.

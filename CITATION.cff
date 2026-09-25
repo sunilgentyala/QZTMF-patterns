@@ -1,10 +1,30 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the accompanying paper (manuscript in preparation)."
+type: software
 title: "QZTMF Patterns: Reference Implementations of Cryptographic Agility Engineering Patterns"
 authors:
+- family-names: Gentyala
+  given-names: Sunil
+  orcid: https://orcid.org/0009-0005-2642-3479
+- family-names: Martin
+  given-names: John
+- family-names: Caprio
+  given-names: Floriano
+- family-names: Kasturi
+  given-names: Akhila
+- family-names: Kasireddy
+  given-names: Hari Rama
+repository-code: "https://github.com/sunilgentyala/QZTMF-patterns"
+license: MIT
+version: 0.1.0
+date-released: "2026-07-26"
+preferred-citation:
+  type: unpublished
+  title: Post-Quantum Cryptographic Migration Framework for Enterprise Zero-Trust Security
+    Architectures
+  authors:
   - family-names: Gentyala
     given-names: Sunil
-    orcid: ""
   - family-names: Martin
     given-names: John
   - family-names: Caprio
@@ -13,22 +33,5 @@ authors:
     given-names: Akhila
   - family-names: Kasireddy
     given-names: Hari Rama
-repository-code: "https://github.com/sunilgentyala/QZTMF-patterns"
-license: MIT
-version: 0.1.0
-date-released: "2026-07-26"
-preferred-citation:
-  type: article
-  title: "Post-Quantum Cryptographic Migration Framework for Enterprise Zero-Trust Security Architectures"
-  authors:
-    - family-names: Gentyala
-      given-names: Sunil
-    - family-names: Martin
-      given-names: John
-    - family-names: Caprio
-      given-names: Floriano
-    - family-names: Kasturi
-      given-names: Akhila
-    - family-names: Kasireddy
-      given-names: Hari Rama
-  status: "Manuscript in preparation"
+  year: 2026
+  notes: Manuscript in preparation; not yet peer-reviewed.
